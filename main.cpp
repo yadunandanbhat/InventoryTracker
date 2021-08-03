@@ -44,8 +44,17 @@ void retrieve_details(char st_no[])
  	{
 		if(strcmp(prdrec[i].ind,st_no)==0) 
 	 	{
-		cout<<"\n"<<"Product details : ";
-		cout<<"\nProduct ID\t:"<<prdrec[i].pid<<"\nName\t:"<<prdrec[i].name<<"\nCost\t:" <<prdrec[i].cost<<"\nStock\t:"<<prdrec[i].stock<<"\nType\t:"<<prdrec[i].type<<"\n";
+		// cout<<"\n"<<"Product details : ";
+		// cout<<"\nProduct ID\t:"<<prdrec[i].pid<<"\nName\t:"<<prdrec[i].name<<"\nCost\t:" <<prdrec[i].cost<<"\nStock\t:"<<prdrec[i].stock<<"\nType\t:"<<prdrec[i].type<<"\n";
+		printf("\n\t+-----------------------------+\n");
+		printf("\t|       Product Details       |\n");
+		printf("\t+-----------------------------+\n");
+		printf("\t| Product ID:            %5s|\n", prdrec[i].pid);
+		printf("\t| Name:        %15s|\n", prdrec[i].name);
+		printf("\t| Cost:                  %5s|\n", prdrec[i].cost);
+		printf("\t| Stock:                 %5s|\n", prdrec[i].stock);
+		printf("\t| Type:        %15s|\n", prdrec[i].type);
+		printf("\t+-----------------------------+\n");
 		break;
 	 	}
  	}
@@ -64,32 +73,44 @@ void add_product()
 	file1.open("index.dat",ios::out|ios::app);
 	if(!file1)
 	{
-		cout<<"\nError opening index file!\n";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                            Error opening the index file!                             |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 		exit(0);
 	}
 
 	file2.open("product_record.dat",ios::out|ios::app);
 	if(!file2)
 	{
-		cout<<"\nError product record file!\n";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                           Error opening the product record!                          |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 		exit(0);
 	}
+	// cout<<"\nEnter the no. of products : ";
+	// cin>>no;
+	cout<<R"(
+================================================================================================
 
-	cout<<"\nEnter the no. of products : ";
+	Enter the no. of products: )";
 	cin>>no;
-	cout<<"\nEnter the details:"; 
+	cout<<"\tEnter the details below!\n"; 
 
 	for(I=cnt; I<(cnt+no); I++)
     {                  
-		cout<<"\nProduct ID\t: ";
+		cout<<R"(
+================================================================================================)"<<'\n';
+		cout<<"\n\tProduct ID\t: ";
 		cin>>s.pid;
-		cout<<"\nName\t: ";
+		cout<<"\n\tName      \t: ";
 		cin>>s.name;
-		cout<<"\nCost\t: ";
+		cout<<"\n\tCost      \t: ";
 		cin>>s.cost;
-		cout<<"\nStock\t: ";
+		cout<<"\n\tStock     \t: ";
 		cin>>s.stock;
-		cout<<"\nType\t: ";
+		cout<<"\n\tType      \t: ";
 		cin>>s.type;
 
 		sprintf(buf2,"%s|%d\n",s.pid,I);
@@ -108,12 +129,20 @@ void search_product()
 	char st_no[5],st_pid[5],rt_pid[5];
 	fstream file1;
 
-	cout<<"\nPlease enter the pid of the product whose info is to be displayed: ";
+	cout<<R"(
+================================================================================================
+
+	Enter the pid of the product whose info is to be displayed: )";
 	cin>>st_pid;
+	cout<<R"(
+================================================================================================)"<<'\n';
 	file1.open("index.dat",ios::in); 
 	if(!file1)
 	{
-		cout<<"\nError opening index file!";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                            Error opening the index file!                             |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 		exit(0);
 	}
 	flag1=0;
@@ -129,7 +158,10 @@ void search_product()
 		}
 	}
 	if(!flag1)
-	cout<<"\nRecord search failed!"; 
+	cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                                Record search failed!                                 |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 	file1.close();
 }
 
@@ -151,14 +183,19 @@ void delete_stdproduct(char pido[])
 	}
 	if(flag==-1)                //Record not found
 	{
-		cout<<"\nError! Record not found!";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                               Error! Record not found!                               |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 		return;
 	}
 	if(flag==(no-1))            //Delete found last record
 	{
 		no--;
-		cout<<"\nDeleted!";
-		
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                                       Deleted!                                       |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 	}
 	else
 	{
@@ -167,7 +204,10 @@ void delete_stdproduct(char pido[])
 			prdrec[I] = prdrec[I+1];
 		}
 		no--;
-		cout<<"\nDeleted!";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                                       Deleted!                                       |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 	}
 
 	file1.open("index.dat",ios::out);  
@@ -190,12 +230,20 @@ void delete_product()
 	char st_no[5],st_pid[5],rt_pid[5];
 	fstream file1;
 
-	cout<<"\nPlease enter the pid of the product whose info is to be deleted: ";
+	cout<<R"(
+================================================================================================
+
+	Enter the pid of the product to be deleted: )";
 	cin>>st_pid;
+	cout<<R"(
+================================================================================================)"<<'\n';
 	file1.open("index.dat",ios::in);
 	if(!file1)
 	{
-		cout<<"\nError opening the index file!";
+		cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                            Error opening the index file!                             |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 		exit(0);
 	}
 	flag=0;
@@ -213,7 +261,10 @@ void delete_product()
 		}
 	}
 	if(!flag)
-	cout<<"\nDeletion failed!"; 
+	cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                                   Deletion failed!                                   |
+    +--------------------------------------------------------------------------------------+    )"<<'\n'; 
 	file1.close();
 	
 	
@@ -225,8 +276,13 @@ void display_products()
 	product s;
 	
 	file2.open("product_record.dat",ios::in);
-	cout<<"\nInventory details: \n";
-	cout<<"Index"<<"\t"<<"PID"<<"\t"<<"Name"<<"\t"<<"Cost"<<"\t"<<"Stock"<<"\t"<<"Type"<<"\t"<<endl; 
+	cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                                  Inventory Details!                                  |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
+	printf("\t      +-------+-------+-----------------+-------+-------+-----------------+\n");
+	printf("\t      | Index |  PID  |       Name      |  Cost | Stock |       Type      |\n");
+	printf("\t      +-------+-------+-----------------+-------+-------+-----------------+");
 	while(!file2.fail()) //Unpacking record data
  	{
 		file2.getline(s.ind,5,'|');
@@ -235,11 +291,10 @@ void display_products()
 		file2.getline(s.cost,5,'|');
 		file2.getline(s.stock,5,'|');
 		file2.getline(s.type,15,'\n');
-		cout<<s.ind<<"\t"<<s.pid<<"\t"<<s.name<<"\t"<<s.cost<<"\t"<<s.stock<<"\t"<<s.type<<"\n";
-	 	
+		printf("\n\t      | %-5s | %-5s | %-15s | %-5s | %-5s | %-15s |", s.ind, s.pid, s.name, s.cost, s.stock, s.type);
  	}
+	printf("\n\t      +-------+-------+-----------------+-------+-------+-----------------+\n");
 	file2.close();
-
 }
 
 void modify_product()
@@ -252,13 +307,20 @@ void modify_product()
   file2.open("product_record.dat",ios::in);
   if(!file2)
   {
-      cout<<"\nError opening the product record!"; 
+      cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                           Error opening the product record!                          |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
       exit(0);
   }
 
-  cout<<"\nEnter the pid of the product to be modified: ";
-  cin>>pid;
+  cout<<R"(
+================================================================================================
 
+	Enter the pid of the product to be modified: )";
+  cin>>pid;
+  cout<<R"(
+================================================================================================)"<<'\n';
   I=0;
 
   while(!file2.eof())//Loop through end of file & extract all records
@@ -277,25 +339,30 @@ void modify_product()
   {
       if(strcmp(pid,s1[j].pid)==0)
       {
-          cout<<"\nThe old values of the record with pid "<<pid<<" are ";
-          cout<<"\nPID    = "<<s1[j].pid;
-          cout<<"\nName   = "<<s1[j].name;
-          cout<<"\nCost   = "<<s1[j].cost;
-          cout<<"\nStock  = "<<s1[j].stock;
-          cout<<"\nType   = "<<s1[j].type;
-
-          cout<<"\nEnter the new values (The PID can't be changed)\n";
-          cout<<"\nName   = ";  cin>>s1[j].name;
-          cout<<"\nCost   = ";  cin>>s1[j].cost;
-          cout<<"\nStock  = ";  cin>>s1[j].stock;
-          cout<<"\nType   = ";  cin>>s1[j].type;
+          cout<<"\n\tThe old values of the record with pid "<<pid<<" are: ";
+          cout<<"\n\n\tPID    = "<<s1[j].pid;
+          cout<<"\n\n\tName   = "<<s1[j].name;
+          cout<<"\n\n\tCost   = "<<s1[j].cost;
+          cout<<"\n\n\tStock  = "<<s1[j].stock;
+          cout<<"\n\n\tType   = "<<s1[j].type;
+		  cout<<'\n'<<R"(
+================================================================================================)";
+          cout<<"\n\n\tEnter the new values (The PID can't be changed)\n";
+          cout<<"\n\tName   = ";  cin>>s1[j].name;
+          cout<<"\n\tCost   = ";  cin>>s1[j].cost;
+          cout<<"\n\tStock  = ";  cin>>s1[j].stock;
+          cout<<"\n\tType   = ";  cin>>s1[j].type;
+		  cout<<'\n';
           break;
       }//end of if
   }//end of for
 
     if(j==I)
     {
-        cout<<"\nThe product with pid "<<pid<<" is not present"; 
+        cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                    The product with the given pid is not present!                    |
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
         return;
     }
 
@@ -305,7 +372,10 @@ void modify_product()
     out1.open("product_record.dat",ios::out);
     if(!out1)
     {
-          cout<<"\nError opening the product record!"; 
+          cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |                           Error opening the product record!                          |
+    +--------------------------------------------------------------------------------------+    )"<<'\n'; 
           return;
     }
     for(j=0;j<I;j++)
@@ -318,16 +388,41 @@ void modify_product()
 int main()
 {
 	int choice;
-
+	cout<<R"(
+    +--------------------------------------------------------------------------------------+    
+    |  _____                      _                     _______             _              |    
+    | |_   _|                    | |                   |__   __|           | |             |    
+    |   | |  _ ____   _____ _ __ | |_ ___  _ __ _   _     | |_ __ __ _  ___| | _____ _ __  |    
+    |   | | | '_ \ \ / / _ \ '_ \| __/ _ \| '__| | | |    | | '__/ _` |/ __| |/ / _ \ '__| |    
+    |  _| |_| | | \ V /  __/ | | | || (_) | |  | |_| |    | | | | (_| | (__|   <  __/ |    |    
+    | |_____|_| |_|\_/ \___|_| |_|\__\___/|_|   \__, |    |_|_|  \__,_|\___|_|\_\___|_|    |    
+    |                                            __/ |                                     |    
+    |                                           |___/                                      |    
+    +--------------------------------------------------------------------------------------+    )"<<'\n';
 	for(;;)
 	{
-		cout<<"\n1. Add a product";
-		cout<<"\n2. Search a product";
-		cout<<"\n3. Delete a product";
-		cout<<"\n4. Display all products";
-        cout<<"\n5. Modify a product info";
-        cout<<"\n0. Exit";
-		cout<<"\nPlease enter your choice: ";
+		cout<<R"(
+================================================================================================
+
+	+--------------------------+
+	|   Available Operations   |
+	+--------------------------+
+	| 1. Add a product         |
+	| 2. Search for a product  |
+	| 3. Delete a product      |
+	| 4. Display all products  |
+	| 5. Modify a product info |
+	| 0. Exit                  |
+	+--------------------------+
+
+	Enter your choice: )";
+		// cout<<"\n1. Add a product";
+		// cout<<"\n2. Search a product";
+		// cout<<"\n3. Delete a product";
+		// cout<<"\n4. Display all products";
+        // cout<<"\n5. Modify a product info";
+        // cout<<"\n0. Exit";
+		// cout<<"\nPlease enter your choice: ";
 		cin>>choice;
 		switch(choice)
 		{
@@ -342,7 +437,8 @@ int main()
             case 5: modify_product();
                     break;
             case 0: exit(1);
-			default:cout<<"\nInvalid choice!";
+			default:cout<<R"(
+	Invalid choice! The program will be terminating!)";
 					exit(0);	
 		}
 	}
