@@ -437,7 +437,19 @@ void modify_product()
 
 int main()
 {
-	int choice;
+	int choice, count;
+	string password;
+	cout<<"Enter your password: ";
+	cin>>password;
+	while (password!="admin123") {
+		for (int i=2; i>0; i--) {
+			cout<<"\nTry again! You have "<<i<<" tries left!";
+			cout<<"\nEnter your password: ";
+			cin>>password;
+		}
+		cout<<"\nYou have entered wrong password multiple times. The program will now be terminating.";
+		exit(0);
+	}
 	cout<<R"(
     +--------------------------------------------------------------------------------------+    
     |  _____                      _                     _______             _              |    
