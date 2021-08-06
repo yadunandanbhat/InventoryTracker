@@ -2,6 +2,7 @@
 #include<fstream>
 #include<stdlib.h>
 #include<string.h>
+#include<regex>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ public: char ind[5],pid[5],name[15],cost[5],stock[5],type[15];
 }prdrec[20];
 
 int no;
+regex integer("(\\+|-)?[[:digit:]]+");
 
 int get_prd_records()
 {
@@ -104,12 +106,30 @@ void add_product()
 ================================================================================================)"<<'\n';
 		cout<<"\n\tProduct ID\t: ";
 		cin>>s.pid;
+		while(!regex_match(s.pid,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>s.pid;
+ 		}
 		cout<<"\n\tName      \t: ";
 		cin>>s.name;
 		cout<<"\n\tCost      \t: ";
 		cin>>s.cost;
+		while(!regex_match(s.cost,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>s.cost;
+ 		}
 		cout<<"\n\tStock     \t: ";
 		cin>>s.stock;
+		while(!regex_match(s.stock,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>s.stock;
+ 		}
 		cout<<"\n\tType      \t: ";
 		cin>>s.type;
 
@@ -134,6 +154,12 @@ void search_product()
 
 	Enter the pid of the product whose info is to be displayed: )";
 	cin>>st_pid;
+	while(!regex_match(st_pid,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>st_pid;
+ 		}
 	cout<<R"(
 ================================================================================================)"<<'\n';
 	file1.open("index.dat",ios::in); 
@@ -235,6 +261,12 @@ void delete_product()
 
 	Enter the pid of the product to be deleted: )";
 	cin>>st_pid;
+	while(!regex_match(st_pid,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>st_pid;
+ 		}
 	cout<<R"(
 ================================================================================================)"<<'\n';
 	file1.open("index.dat",ios::in);
@@ -319,6 +351,12 @@ void modify_product()
 
 	Enter the pid of the product to be modified: )";
   cin>>pid;
+  while(!regex_match(pid,integer))
+ 		{
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>pid;
+ 		}
   cout<<R"(
 ================================================================================================)"<<'\n';
   I=0;
@@ -350,7 +388,19 @@ void modify_product()
           cout<<"\n\n\tEnter the new values (The PID can't be changed)\n";
           cout<<"\n\tName   = ";  cin>>s1[j].name;
           cout<<"\n\tCost   = ";  cin>>s1[j].cost;
+		  while(!regex_match(s1[j].cost,integer))
+ 		  {
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>s1[j].cost;
+ 		  }
           cout<<"\n\tStock  = ";  cin>>s1[j].stock;
+		  while(!regex_match(s1[j].stock,integer))
+ 		  {
+	 		if(!cin) break;
+ 			cout<<"\tInvalid datatype input. Enter integer: ";
+ 			cin>>s1[j].stock;
+ 		  }
           cout<<"\n\tType   = ";  cin>>s1[j].type;
 		  cout<<'\n';
           break;
@@ -416,13 +466,6 @@ int main()
 	+--------------------------+
 
 	Enter your choice: )";
-		// cout<<"\n1. Add a product";
-		// cout<<"\n2. Search a product";
-		// cout<<"\n3. Delete a product";
-		// cout<<"\n4. Display all products";
-        // cout<<"\n5. Modify a product info";
-        // cout<<"\n0. Exit";
-		// cout<<"\nPlease enter your choice: ";
 		cin>>choice;
 		switch(choice)
 		{
